@@ -1,0 +1,4 @@
+# dsh-compact-now: one global host row registering the compact button.
+- insert:
+    - id: dsh-compact-now
+      name: dsh-compact-now
