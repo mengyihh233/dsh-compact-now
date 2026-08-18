@@ -6,11 +6,7 @@
  * 渲染 /compact 命令完全相同的通道，复用官方 compaction 服务（compactNow）。
  */
 
-declare const React: {
-  createElement: (type: unknown, props: Record<string, unknown> | null, ...children: unknown[]) => unknown
-  useState: <T>(initial: T) => [T, (v: T | ((p: T) => T)) => void]
-}
-
+import React from 'react'
 import type { Context } from '@deepseek-ai/cordis'
 
 export const name = 'dsh-compact-now'

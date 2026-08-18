@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env node
+#!/usr/bin/env node
 /**
  * dsh-compact-now client 鏋勫缓
  * DSH 鐨?client 鎻掍欢鍗婇儴瑕佹眰 `window.__ModuleLoader__.load({ id, factory })`
@@ -17,6 +17,7 @@ await build({
   platform: 'browser',
   target: ['es2022'],
   outfile: join(repo, 'lib', 'client.js'),
+  external: ['react'],
   banner: {
     js: `window.__ModuleLoader__.load({ id: "${pluginId}", factory: (require) => { var module = { exports: {} }; var exports = module.exports;`,
   },
