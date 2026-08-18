@@ -14,7 +14,7 @@ declare const React: {
 import type { Context } from '@deepseek-ai/cordis'
 
 export const name = 'dsh-compact-now'
-export const inject: string[] = []
+export const inject = ['slots', 'remote']
 
 /** 输入区按钮工厂：闭包持有 ctx，点击执行 /compact。 */
 function createCompactButton(ctx: Context) {
@@ -26,9 +26,7 @@ function createCompactButton(ctx: Context) {
   const run = () => {
     if (busy || !sessionId) return
     setBusy(true)
-    const remote = ctx.get('remote') as
-      | { commands?: { execute: (sessionId: string, line: string) => Promise<unknown> } }
-      | undefined
+    const remote = (ctx as unknown as { remote?: { commands?: { execute: (sessionId: string, line: string) => Promise<unknown> } } }).remote
     const cmd = remote && remote.commands && typeof remote.commands.execute === 'function'
       ? remote.commands.execute(sessionId, '/compact')
       : Promise.resolve({ ok: false })
@@ -65,7 +63,7 @@ function createCompactButton(ctx: Context) {
 }
 
 export function apply(ctx: Context): void {
-  const slots = ctx.get('slots')
+  const slots = (ctx as unknown as { slots?: { inject: (key: string, cb: () => unknown) => unknown; register: (opts: Record<string, unknown>, fn: (props: { sessionId?: string }) => unknown) => unknown } }).slots
   if (slots === undefined) return
   const CompactButton = createCompactButton(ctx)
   slots.inject('conversation.input.right', () =>
